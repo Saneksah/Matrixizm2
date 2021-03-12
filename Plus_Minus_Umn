@@ -1,0 +1,107 @@
+import java.util.Scanner;
+
+class Main {
+
+  public static int[][] CreateMat() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Введите размер матрицы M x N: ");
+    int m = scanner.nextInt();
+    int n = scanner.nextInt();
+    System.out.println("Вводите значения матрицы: ");
+    int matrix1[][] = new int[m][n];
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        matrix1[i][j] = scanner.nextInt();
+      }
+    }
+    return matrix1;
+  }
+  
+  public static int[][] Plus(int[][] m1, int[][] m2) {
+    int result[][] = new int[m1.length][m1[0].length];
+    for (int i = 0; i < m1.length; ++i) {
+      for (int j = 0; j < m1[0].length; ++j) {
+        result[i][j] = m1[i][j] + m2[i][j];
+      }
+    }
+    for (int i = 0; i < result.length; ++i) {
+        System.out.println();
+        for (int j = 0; j < result[0].length; ++j) {
+          System.out.print(" " + result[i][j] + " ");
+        }
+      }
+    return result;
+  }
+
+  public static int[][] Minus(int[][] m1, int[][] m2) {
+    int result[][] = new int[m1.length][m1[0].length];
+    for (int i = 0; i < m1.length; ++i) {
+      for (int j = 0; j < m1[0].length; ++j) {
+        result[i][j] = m1[i][j] - m2[i][j];
+      }
+    }
+    for (int i = 0; i < result.length; ++i) {
+        System.out.println();
+        for (int j = 0; j < result[0].length; ++j) {
+          System.out.print(" " + result[i][j] + " ");
+        }
+      }
+    return result;
+  }
+
+  public static int[][] UmnMatr(int[][] m1, int[][] m2) {
+    int m = m1.length;
+    int h = m2[0].length;
+    int w = m2.length;
+    int[][] result = new int[m][h];
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < h; j++) {
+        for (int k = 0; k < w; k++) {
+          result[i][j] += m1[i][k] * m2[k][j];
+        }
+      }
+    }
+    for (int i = 0; i < result.length; ++i) {
+          System.out.println();
+          for (int j = 0; j < result[0].length; ++j) {
+            System.out.print(" " + result[i][j] + " ");
+          }
+        }
+    return result;
+  }
+
+  public static void Operation(int a, int[][] matrixA, int[][] matrixB) {
+    switch(a) {
+      case 1:
+      Plus(matrixA, matrixB);
+      break;
+    case 2:
+      Minus(matrixA, matrixB);
+      break;
+    case 3:
+      if (matrixA.length != matrixB.length) {
+        System.out.print("Ошибка! Кол-во столбцов первой матрицы должно совпадать с кол-во строк второй матрицы!");
+        break;
+      } else {
+        UmnMatr(matrixA, matrixB);
+        break;
+      }
+    }
+  }
+
+  public static void menu() {
+    Scanner scanner = new Scanner(System.in);
+    int matrixA[][] = CreateMat();
+    int matrixB[][] = CreateMat();
+    System.out.println(
+        "\n Что сделать с ними \n1 - сложить, \n2 - вычесть, \n3 - умножить.");
+    System.out.print("\nВаш выбор: ");
+    int value = scanner.nextInt();
+    System.out.println("\nРезультат: ");
+    Operation(value, matrixA, matrixB);
+  }
+
+  public static void main(String[] args) {
+    menu();
+  }
+}
